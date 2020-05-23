@@ -96,7 +96,7 @@ OPTIONAL_INTERFACES = [
     ['etcd'],
 ]
 REQUIRED_INTERFACES = [
-    ['shared-db', 'db.master']
+    ['shared-db', 'db.master', 'storage-backend-etcd']
 ]
 
 VAULT_CONFIG = '/var/snap/vault/common/vault.hcl'
@@ -224,6 +224,16 @@ def configure_vault_mysql(mysql):
     context = {
         'storage_name': 'mysql',
         'mysql_db_relation': mysql,
+    }
+    configure_vault(context)
+
+
+@when('snap.installed.vault')
+@when('storage-backend-etcd.available')
+@when('vault.ssl.configured')
+def configure_vault_backend_etcd(etcd):
+    context = {
+        'storage_name': 'etcd'
     }
     configure_vault(context)
 

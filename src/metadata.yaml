@@ -26,6 +26,8 @@ requires:
     interface: pgsql
   shared-db:
     interface: mysql-shared
+  storage-backend-etcd:
+    interface: etcd
   etcd:
     interface: etcd
   ha:

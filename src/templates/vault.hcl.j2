@@ -21,7 +21,11 @@ storage "mysql" {
 }
 {%- endif %}
 {%- if etcd_conn %}
+{%- if storage_name == 'etcd' %}
+storage "etcd" {
+{%- else %}
 ha_storage "etcd" {
+{%- endif %}
   ha_enabled = "true"
   address = "{{ etcd_conn }}"
   tls_ca_file = "{{ etcd_tls_ca_file }}"
