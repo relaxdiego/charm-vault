@@ -98,7 +98,7 @@ OPTIONAL_INTERFACES = [
     ['etcd'],
 ]
 REQUIRED_INTERFACES = [
-    ['shared-db', 'db.master']
+    ['shared-db', 'db.master', 'storage-backend-etcd']
 ]
 
 VAULT_CONFIG = '/var/snap/vault/common/vault.hcl'
@@ -270,6 +270,16 @@ def configure_vault_mysql(mysql):
 
 
 @when_not("is-update-status-hook")
+@when('snap.installed.vault')
+@when('storage-backend-etcd.available')
+@when('vault.ssl.configured')
+def configure_vault_backend_etcd(etcd):
+    context = {
+        'storage_name': 'etcd'
+    }
+    configure_vault(context)
+
+
 @when('config.changed.disable-mlock')
 def disable_mlock_changed():
     remove_state('configured')
