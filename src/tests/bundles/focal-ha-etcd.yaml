@@ -1,0 +1,24 @@
+series: focal
+services:
+  vault:
+    num_units: 3
+    charm: vault
+    options:
+        vip: 'ADD YOUR VIP HERE'
+  hacluster:
+    charm: cs:~openstack-charmers-next/hacluster
+  easyrsa:
+    charm: cs:~containers/easyrsa
+    num_units: 1
+  etcd:
+    charm: cs:etcd
+    num_units: 3
+relations:
+- - etcd:certificates
+  - easyrsa:client
+- - etcd:db
+  - vault:storage-backend-etcd
+- - etcd:db
+  - vault:etcd
+- - vault:ha
+  - hacluster:ha
