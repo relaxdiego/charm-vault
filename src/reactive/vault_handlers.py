@@ -93,10 +93,10 @@ CREATE INDEX IF NOT EXISTS parent_path_idx ON vault_kv_store (parent_path);
 
 
 OPTIONAL_INTERFACES = [
-    ['etcd'],
+    ['etcd', 'ha-storage-backend-mysql'],
 ]
 REQUIRED_INTERFACES = [
-    ['shared-db', 'db.master']
+    ['shared-db', 'db.master', 'storage-backend-etcd']
 ]
 
 VAULT_CONFIG = '/var/snap/vault/common/vault.hcl'
