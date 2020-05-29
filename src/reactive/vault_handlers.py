@@ -228,6 +228,17 @@ def configure_vault_mysql(mysql):
     configure_vault(context)
 
 
+@when('snap.installed.vault')
+@when('storage-backend-etcd.available')
+@when('vault.ssl.configured')
+def configure_vault_backend_etcd(etcd):
+    context = {
+        'storage_name': 'etcd',
+        'backend_etcd_relation': etcd,
+    }
+    configure_vault(context)
+
+
 @when('config.changed.disable-mlock')
 def disable_mlock_changed():
     remove_state('configured')
