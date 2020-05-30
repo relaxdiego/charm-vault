@@ -233,8 +233,7 @@ def configure_vault_mysql(mysql):
 @when('vault.ssl.configured')
 def configure_vault_backend_etcd(etcd):
     context = {
-        'storage_name': 'etcd',
-        'backend_etcd_relation': etcd,
+        'storage_name': 'etcd'
     }
     configure_vault(context)
 
