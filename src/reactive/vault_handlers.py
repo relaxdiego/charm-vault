@@ -792,7 +792,9 @@ def client_approle_authorized():
 
 
 @when_not("is-update-status-hook")
-@when_any('db.master.available', 'shared-db.available')
+@when_any('db.master.available',
+          'shared-db.available',
+          'storage-backend-etcd.available')
 @when('leadership.is_leader',
       'config.set.auto-generate-root-ca-cert')
 @when_not('charm.vault.ca.ready',
@@ -831,7 +833,9 @@ def takeover_cert_leadership():
 
 
 @when_not("is-update-status-hook")
-@when_any('db.master.available', 'shared-db.available')
+@when_any('db.master.available',
+          'shared-db.available',
+          'storage-backend-etcd.available')
 @when('leadership.is_leader',
       'charm.vault.ca.ready',
       'certificates.available')
@@ -857,7 +861,9 @@ def publish_ca_info():
 
 
 @when_not("is-update-status-hook")
-@when_any('db.master.available', 'shared-db.available')
+@when_any('db.master.available',
+          'shared-db.available',
+          'storage-backend-etcd.available')
 @when('leadership.is_leader',
       'charm.vault.ca.ready',
       'certificates.available')
@@ -960,7 +966,9 @@ def tune_pki_backend():
 
 
 @when_not("is-update-status-hook")
-@when_any('db.master.available', 'shared-db.available')
+@when_any('db.master.available',
+          'shared-db.available',
+          'storage-backend-etcd.available')
 @when('leadership.is_leader',
       'charm.vault.ca.ready')
 @when('config.set.default-ttl')
